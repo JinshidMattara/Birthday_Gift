@@ -321,7 +321,18 @@
 
 <!-- ============ SOUND TOGGLE ============ -->
 <button id="sound-toggle" aria-label="Toggle sound" data-magnetic class="fixed top-5 right-5 z-[80] w-11 h-11 rounded-full glass items-center justify-center text-cream/90 hover:text-gold transition-colors opacity-0 hidden md:inline-flex">
-  <span id="sound-icon">🔊</span>
+  <span id="sound-icon" class="flex items-center justify-center w-5 h-5">
+    <svg id="icon-volume-on" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+    </svg>
+    <svg id="icon-volume-off" class="hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <line x1="23" y1="9" x2="17" y2="15"></line>
+      <line x1="17" y1="9" x2="23" y2="15"></line>
+    </svg>
+  </span>
 </button>
 
 <!-- ============ BACKGROUND MUSIC ============ -->
@@ -1023,9 +1034,13 @@
     heroEntrance();
   }, { once: true });
 
+  var iconVolumeOn = document.getElementById("icon-volume-on");
+  var iconVolumeOff = document.getElementById("icon-volume-off");
+
   soundToggle.addEventListener("click", function () {
     soundEnabled = !soundEnabled;
-    soundIcon.textContent = soundEnabled ? "🔊" : "🔇";
+    iconVolumeOn.classList.toggle("hidden", !soundEnabled);
+    iconVolumeOff.classList.toggle("hidden", soundEnabled);
     if (bgAudio) {
       if (soundEnabled) bgAudio.play().catch(function () {});
       else bgAudio.pause();
