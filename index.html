@@ -236,8 +236,13 @@
     display: flex;
     gap: 1.25rem;
     padding: 0 1.5rem 1rem;
+    width: 100%;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-y;
+    scroll-snap-type: x proximity;
     align-items: center;
     height: 100%;
   }
@@ -468,11 +473,11 @@
     <div class="gallery-heading pt-24 md:pt-28 pb-10 text-center reveal px-6">
       <p class="gallery-kicker eyebrow justify-center font-display italic text-lg md:text-xl mb-2">our little archive</p>
       <h2 class="font-serif text-4xl md:text-6xl text-rose-900">Memory Gallery</h2>
-      <p class="gallery-hint mt-4 text-[11px] md:text-xs tracking-[0.22em] uppercase">a few moments, held close&nbsp; ✦ &nbsp;scroll to wander</p>
+      <p class="gallery-hint mt-4 text-[11px] md:text-xs tracking-[0.22em] uppercase">a few moments, held close&nbsp; ✦ &nbsp;swipe or scroll to wander</p>
     </div>
 
     <div id="gallery-track-wrap" class="relative h-[78vh] md:h-screen">
-      <div id="gallery-track">
+      <div id="gallery-track" data-lenis-prevent role="region" aria-label="Photo gallery. Swipe horizontally to see each memory.">
 
         <!-- Intro panel -->
         <div class="gallery-intro gallery-panel w-[82vw] md:w-[26vw] h-[56vh] md:h-[62vh] rounded-3xl text-cream p-8 md:p-10 flex flex-col justify-center relative overflow-hidden shadow-2xl">
@@ -1209,6 +1214,77 @@
       card.addEventListener("mousemove", onMove);
       card.addEventListener("mouseleave", onLeave);
     });
+  }
+
+  /* ---------------------------------------------------------
+     Mobile gallery swipe with a soft glide and snap
+  --------------------------------------------------------- */
+  var galleryTouchTrack = document.getElementById("gallery-track");
+  if (galleryTouchTrack && window.matchMedia("(max-width: 767px)").matches) {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var touchStartScroll = 0;
+    var lastTouchX = 0;
+    var lastTouchTime = 0;
+    var touchVelocity = 0;
+    var horizontalTouch = false;
+
+    function settleGallerySwipe(withGlide) {
+      if (!horizontalTouch) return;
+      var projectedScroll = galleryTouchTrack.scrollLeft - touchVelocity * (withGlide ? 220 : 0);
+      var maxScroll = Math.max(0, galleryTouchTrack.scrollWidth - galleryTouchTrack.clientWidth);
+      projectedScroll = Math.max(0, Math.min(maxScroll, projectedScroll));
+      var panels = galleryTouchTrack.querySelectorAll(".gallery-panel");
+      var closestPanel = panels[0];
+      var closestDistance = Infinity;
+      panels.forEach(function (panel) {
+        var panelCenter = panel.offsetLeft + panel.offsetWidth / 2;
+        var distance = Math.abs(panelCenter - (projectedScroll + galleryTouchTrack.clientWidth / 2));
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestPanel = panel;
+        }
+      });
+      var target = closestPanel ? closestPanel.offsetLeft + closestPanel.offsetWidth / 2 - galleryTouchTrack.clientWidth / 2 : projectedScroll;
+      target = Math.max(0, Math.min(maxScroll, target));
+      gsap.to(galleryTouchTrack, {
+        scrollLeft: target,
+        duration: withGlide ? 0.55 : 0.3,
+        ease: "power3.out",
+        overwrite: true,
+        onComplete: function () { galleryTouchTrack.style.scrollSnapType = ""; },
+      });
+      horizontalTouch = false;
+    }
+
+    galleryTouchTrack.addEventListener("touchstart", function (event) {
+      if (!event.touches.length) return;
+      gsap.killTweensOf(galleryTouchTrack, "scrollLeft");
+      galleryTouchTrack.style.scrollSnapType = "none";
+      touchStartX = lastTouchX = event.touches[0].clientX;
+      touchStartY = event.touches[0].clientY;
+      touchStartScroll = galleryTouchTrack.scrollLeft;
+      lastTouchTime = performance.now();
+      touchVelocity = 0;
+      horizontalTouch = false;
+    }, { passive: true });
+    galleryTouchTrack.addEventListener("touchmove", function (event) {
+      if (!event.touches.length) return;
+      var touch = event.touches[0];
+      var dx = touch.clientX - touchStartX;
+      var dy = touch.clientY - touchStartY;
+      if (!horizontalTouch && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy) * 1.15) horizontalTouch = true;
+      if (horizontalTouch) {
+        event.preventDefault();
+        galleryTouchTrack.scrollLeft = touchStartScroll - dx;
+        var now = performance.now();
+        touchVelocity = (touch.clientX - lastTouchX) / Math.max(1, now - lastTouchTime);
+        lastTouchX = touch.clientX;
+        lastTouchTime = now;
+      }
+    }, { passive: false });
+    galleryTouchTrack.addEventListener("touchend", function () { settleGallerySwipe(true); }, { passive: true });
+    galleryTouchTrack.addEventListener("touchcancel", function () { settleGallerySwipe(false); }, { passive: true });
   }
 
   /* ---------------------------------------------------------
