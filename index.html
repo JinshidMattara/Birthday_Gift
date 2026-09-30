@@ -140,6 +140,42 @@
 
   .text-glow { text-shadow: 0 0 24px rgba(203,210,204,0.5), 0 0 60px rgba(201,162,92,0.25); }
 
+  /* ---------- Birthday editorial hero ---------- */
+  #hero {
+    min-height: min(900px, 100svh);
+    background: radial-gradient(ellipse at 78% 46%, rgba(201,162,92,.16), transparent 34%), linear-gradient(135deg, #1a231b 0%, #304132 55%, #26362a 100%);
+  }
+  #hero .hero-layout { width: min(1240px, 100%); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(2rem, 6vw, 6rem); padding: 3rem 0 5rem; }
+  #hero .hero-copy { text-align: left; }
+  #hero .hero-copy .eyebrow { color: #e4cd97; }
+  #hero-title { font-size: clamp(3.3rem, 7.4vw, 7rem); line-height: .98; letter-spacing: -.055em; margin: 1.2rem 0 1.5rem; }
+  #hero-title { background-image: linear-gradient(110deg, #fff9e9 5%, #e4cd97 55%, #fff9e9 100%); }
+  #hero-sub { max-width: 31rem; margin: 0; color: rgba(255,255,255,.74); font-size: clamp(1.2rem, 2vw, 1.55rem); line-height: 1.55; }
+  #hero-scroll { display: inline-flex; align-items: center; gap: .8rem; margin-top: 2.4rem; color: #e4cd97; }
+  #hero-scroll::after { content: '↓'; font-size: 1.1rem; transition: transform .25s ease; }
+  #hero-scroll:hover::after { transform: translateY(4px); }
+  #hero-photo { width: 100%; min-height: 520px; position: relative; opacity: 0; }
+  .hero-photo-main { position: absolute; width: min(68%, 370px); height: 470px; top: 50%; left: 50%; transform: translate(-50%,-50%) rotate(2deg); padding: 10px; background: #f5eddb; box-shadow: 0 30px 90px rgba(0,0,0,.35); }
+  .hero-photo-main img, .hero-photo-small img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .hero-photo-main img { object-position: center 28%; }
+  .hero-photo-small { position: absolute; z-index: 2; padding: 8px; background: #f5eddb; box-shadow: 0 18px 55px rgba(0,0,0,.35); }
+  .hero-photo-small.old { width: 36%; height: 205px; top: 5%; right: 1%; transform: rotate(7deg); }
+  .hero-photo-small.now { width: 34%; height: 190px; bottom: 4%; left: 0; transform: rotate(-8deg); }
+  .hero-photo-caption { position: absolute; right: 2%; bottom: 7%; color: #e4cd97; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.2rem; transform: rotate(-5deg); }
+  @media (max-width: 767px) {
+    #hero { min-height: auto; }
+    #hero .hero-layout { grid-template-columns: 1fr; gap: 1.5rem; padding: 1rem 0 5rem; }
+    #hero .hero-copy { text-align: center; }
+    #hero .hero-copy .eyebrow { justify-content: center; font-size: 1.1rem; }
+    #hero-title { font-size: clamp(3.2rem, 13vw, 5rem); margin: 1rem 0; }
+    #hero-sub { margin: 0 auto; font-size: 1.2rem; }
+    #hero-scroll { margin-top: 1.5rem; }
+    #hero-photo { min-height: 390px; margin-top: -.5rem; }
+    .hero-photo-main { width: min(60%, 270px); height: 350px; }
+    .hero-photo-small.old { height: 145px; top: 2%; }
+    .hero-photo-small.now { height: 140px; bottom: 2%; }
+  }
+
   .char { display: inline-block; will-change: transform, opacity; }
 
   @keyframes float {
@@ -208,6 +244,36 @@
   #gallery-track::-webkit-scrollbar { display: none; }
   .gallery-panel { flex: none; scroll-snap-align: center; }
 
+  /* ---------- Memory gallery polish ---------- */
+  #gallery { background: radial-gradient(ellipse at 50% 0%, #fff 0%, #f8f7f2 58%, #f0f2ed 100%); }
+  #gallery .gallery-heading { position: relative; padding-bottom: 1rem; }
+  #gallery .gallery-heading::after { content: ''; display: block; width: 54px; height: 1px; margin: 1.25rem auto 0; background: linear-gradient(90deg, transparent, #c9a25c, transparent); }
+  #gallery .gallery-heading .gallery-kicker { color: #8a7042; letter-spacing: .12em; }
+  #gallery .gallery-heading h2 { letter-spacing: -.035em; }
+  #gallery .gallery-heading .gallery-hint { color: rgba(26,35,27,.5); }
+  #gallery-track-wrap { background: radial-gradient(ellipse at center, rgba(201,162,92,.08), transparent 55%); }
+  #gallery-track { gap: 1.25rem; padding: 0 1.5rem 2rem; }
+  .gallery-intro { border: 1px solid rgba(228,205,151,.22); background: linear-gradient(145deg, #344638, #17221a 78%); }
+  .gallery-intro .gallery-index { color: #e4cd97; letter-spacing: .2em; }
+  .gallery-photo { isolation: isolate; border: 1px solid rgba(201,162,92,.28); background: #17221a; box-shadow: 0 25px 60px rgba(26,35,27,.2); transition: transform .45s ease, box-shadow .45s ease; }
+  .gallery-photo > img { filter: brightness(.78) saturate(.86); transition: transform .8s cubic-bezier(.2,.75,.25,1), filter .5s ease; }
+  .gallery-photo:hover > img { filter: brightness(.9) saturate(.96); }
+  .gallery-photo .gallery-dim { position: absolute; inset: 0; z-index: 1; background: rgba(15,20,16,.16); pointer-events: none; transition: background .4s ease; }
+  .gallery-photo:hover .gallery-dim { background: rgba(15,20,16,.06); }
+  .gallery-photo .gallery-caption { position: absolute; z-index: 2; inset: auto 0 0; padding: 3.5rem 1.5rem 1.4rem; background: linear-gradient(0deg, rgba(16,22,17,.86), rgba(16,22,17,.32) 72%, transparent); }
+  .gallery-photo .caption-reveal { transform: none; }
+  .gallery-photo .gallery-caption small { color: #e4cd97; letter-spacing: .2em; }
+  .gallery-photo .gallery-caption p { text-shadow: 0 2px 18px rgba(0,0,0,.45); }
+  @media (min-width: 768px) {
+    #gallery-track { gap: 2rem; padding: 0 7vw 2rem; }
+    .gallery-photo:hover { transform: translateY(-8px); box-shadow: 0 35px 75px rgba(26,35,27,.28); }
+  }
+  @media (max-width: 767px) {
+    #gallery-track-wrap { height: 68vh; }
+    #gallery-track { gap: 1rem; padding-inline: 1.25rem; }
+    #gallery .gallery-heading { padding-bottom: .5rem; }
+  }
+
   @media (min-width: 768px) {
     #gallery-track {
       position: absolute; inset: 0; overflow: visible; padding: 0 6vw;
@@ -254,7 +320,13 @@
     25% { transform: rotate(-3deg); }
     75% { transform: rotate(3deg); }
   }
-  .gift-glow { transition: opacity 0.8s ease; }
+  .gift-glow { opacity: .65; transition: opacity 0.8s ease, transform 1s cubic-bezier(.2,.8,.2,1); }
+  .gift-box.is-open .gift-glow { opacity: 1; transform: scale(1.35); }
+  #gift-celebration { opacity: 0; transform: translateY(10px) scale(.96); color: #8a7042; letter-spacing: .22em; transition: opacity .6s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+  #gift-celebration.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+  #surprise-box { background: radial-gradient(ellipse at 50% 45%, rgba(228,205,151,.18), transparent 38%), linear-gradient(180deg, #fff 0%, #f8f7f2 100%); }
+  #surprise-box .surprise-sparkle { position: absolute; color: #c9a25c; opacity: .4; pointer-events: none; animation: float 6s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) { #gift-celebration, .gift-glow { transition: none; } }
 
   .ribbon-piece {
     position: fixed; top: 0; left: 0; width: 7px; height: 18px; border-radius: 2px;
@@ -337,7 +409,7 @@
 
 <!-- ============ BACKGROUND MUSIC ============ -->
 <audio id="bg-audio" loop preload="none">
-  <source src="music/nins.mp3" type="audio/mpeg" />
+  <source src="music/WhatsApp Video 2026-09-30 at 7.36.40 PM.mp3" type="audio/mpeg" />
 </audio>
 
 <!-- ============ UNLOCK OVERLAY ============ -->
@@ -358,41 +430,32 @@
 <main id="main-content" class="opacity-0">
 
   <!-- ============ HERO ============ -->
-  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-rose-500 px-6 pt-24 pb-16">
+  <section id="hero" class="relative flex items-center justify-center overflow-hidden px-6 pt-24 pb-16">
     <canvas id="hero-canvas" class="absolute inset-0 w-full h-full"></canvas>
     <div id="hero-parallax" class="absolute inset-0">
       <div class="blob-a absolute -top-24 -left-24 w-96 h-96 rounded-full bg-rose-600/20 blur-3xl animate-float-slow"></div>
       <div class="blob-b absolute -bottom-24 -right-10 w-96 h-96 rounded-full bg-gold/20 blur-3xl animate-float-slow"></div>
     </div>
 
-    <div class="relative z-10 flex flex-col items-center text-center max-w-3xl">
-      <p id="hero-eyebrow" class="eyebrow justify-center font-display italic text-blush text-lg md:text-2xl mb-3 opacity-0">watching you grow into all of this has been the best part</p>
-
-      <h1 id="hero-title" class="font-serif text-4xl sm:text-5xl md:text-7xl font-semibold gradient-text mb-8 leading-tight">
-        <span class="split-line block">Happy Birthday,</span>
-        <span class="split-line block">Ninus! <span class="inline-block">🎉</span></span>
-      </h1>
-
-      <!-- Featured portrait — replace by swapping images/shiza-2.jpg -->
-      <div id="hero-photo" class="relative opacity-0">
-        <div class="absolute -inset-8 rounded-full bg-gradient-to-br from-blush via-gold to-rose-500 opacity-30 blur-2xl animate-float"></div>
-        <div class="photo-ring-2"></div>
-        <div class="relative w-56 h-56 sm:w-72 sm:h-72 animate-float">
-          <div class="photo-ring"></div>
-          <div class="absolute inset-[6px] rounded-full overflow-hidden border-4 border-rose-950 shadow-glow">
-            <img src="images/shiza-2.jpg" alt="Ninus smiling" class="w-full h-full object-cover" />
-            <div class="photo-shine"></div>
-          </div>
-        </div>
+    <div class="relative z-10 hero-layout">
+      <div class="hero-copy">
+        <p id="hero-eyebrow" class="eyebrow font-display italic text-lg md:text-2xl mb-3 opacity-0">watching you grow into all of this has been the best part</p>
+        <h1 id="hero-title" class="font-serif font-semibold gradient-text">
+          <span class="split-line block">Happy</span>
+          <span class="split-line block">Birthday,</span>
+          <span class="split-line block">Ninus! <span class="inline-block">✦</span></span>
+        </h1>
+        <p id="hero-sub" class="font-display opacity-0">
+          From the little girl I used to look after at every family function to the stylish, kind-hearted young woman you are now — I'm so proud of who you're becoming.
+        </p>
+        <a href="#gallery" id="hero-scroll" data-magnetic class="text-xs tracking-[0.24em] uppercase opacity-0 hover:text-gold transition-colors">scroll to explore</a>
       </div>
-
-      <p id="hero-sub" class="mt-8 font-display text-xl md:text-2xl text-cream/80 opacity-0 max-w-xl">
-        From the little girl I used to look after at every family function to the stylish, kind-hearted young woman you are now — I'm so proud of who you're becoming.
-      </p>
-
-      <a href="#gallery" id="hero-scroll" data-magnetic class="mt-12 text-cream/50 text-xs tracking-[0.3em] uppercase opacity-0 hover:text-gold transition-colors">
-        scroll to explore ↓
-      </a>
+      <div id="hero-photo" aria-label="A little collection of Ninus's memories">
+        <div class="absolute inset-[8%] rounded-full bg-gold/20 blur-3xl"></div>
+        <div class="hero-photo-main"><img src="images/Gemini_Generated_Image_7kmh0j7kmh0j7kmh.png" alt="Ninus, celebrating a new chapter" /></div>
+        <div class="hero-photo-small now"><img src="images/shiza-1.jpg" alt="Ninus smiling in the sunlight" /></div>
+        <span class="hero-photo-caption">all the years, all the love</span>
+      </div>
     </div>
 
     <div class="wave-divider text-cream">
@@ -402,56 +465,105 @@
 
   <!-- ============ MEMORY GALLERY / STORY ARC ============ -->
   <section id="gallery" class="relative bg-cream text-ink overflow-hidden">
-    <div class="pt-24 md:pt-28 pb-10 text-center reveal px-6">
-      <p class="eyebrow justify-center font-display italic text-rose-600 text-lg md:text-xl mb-2">our little archive</p>
-      <h2 class="font-serif text-3xl md:text-5xl text-rose-900">Memory Gallery</h2>
-      <p class="text-rose-900/40 mt-3 text-xs md:text-sm tracking-[0.15em] uppercase">scroll to move through the story</p>
+    <div class="gallery-heading pt-24 md:pt-28 pb-10 text-center reveal px-6">
+      <p class="gallery-kicker eyebrow justify-center font-display italic text-lg md:text-xl mb-2">our little archive</p>
+      <h2 class="font-serif text-4xl md:text-6xl text-rose-900">Memory Gallery</h2>
+      <p class="gallery-hint mt-4 text-[11px] md:text-xs tracking-[0.22em] uppercase">a few moments, held close&nbsp; ✦ &nbsp;scroll to wander</p>
     </div>
 
     <div id="gallery-track-wrap" class="relative h-[78vh] md:h-screen">
       <div id="gallery-track">
 
         <!-- Intro panel -->
-        <div class="gallery-panel w-[82vw] md:w-[26vw] h-[56vh] md:h-[62vh] rounded-3xl bg-gradient-to-br from-rose-800 to-rose-950 text-cream p-8 md:p-10 flex flex-col justify-center relative overflow-hidden shadow-2xl">
-          <div class="absolute -bottom-10 -right-10 w-44 h-44 rounded-full bg-gold/20 blur-3xl"></div>
-          <span class="text-3xl mb-4">📷</span>
-          <h3 class="font-serif text-2xl md:text-3xl mb-3">A Few of My Favorites</h3>
-          <p class="font-display text-lg text-cream/75">A handful of frames of you — always dressed to impress, always smiling like you mean it.</p>
+        <div class="gallery-intro gallery-panel w-[82vw] md:w-[26vw] h-[56vh] md:h-[62vh] rounded-3xl text-cream p-8 md:p-10 flex flex-col justify-center relative overflow-hidden shadow-2xl">
+          <div class="absolute -bottom-10 -right-10 w-52 h-52 rounded-full bg-gold/15 blur-3xl"></div>
+          <span class="gallery-index text-[10px] uppercase mb-5">01 &nbsp; / &nbsp; the memories</span>
+          <span class="text-3xl mb-4">✦</span>
+          <h3 class="font-serif text-3xl md:text-4xl mb-4 leading-tight">A Few of<br />My Favorites</h3>
+          <p class="font-display text-xl text-cream/70 leading-relaxed">A handful of frames of you — always dressed to impress, always smiling like you mean it.</p>
         </div>
 
         <!-- Replace image src to swap photos, e.g. images/shiza-1.jpg -->
-        <div class="tilt-card gallery-panel group relative w-[82vw] md:w-[32vw] h-[56vh] md:h-[62vh] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-rose-900/10">
+        <div class="tilt-card gallery-photo gallery-panel group relative w-[82vw] md:w-[32vw] h-[56vh] md:h-[62vh] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-rose-900/10">
           <img src="images/shiza-1.jpg" alt="Ninus on a sunlit veranda" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-          <div class="absolute inset-0 bg-gradient-to-t from-rose-950/80 via-transparent to-transparent"></div>
-          <div class="absolute inset-x-0 bottom-0 p-5 overflow-hidden">
-            <p class="caption-reveal text-cream font-display text-xl">Golden hour on the veranda</p>
+          <div class="gallery-dim"></div>
+          <div class="gallery-caption">
+            <small class="block text-[10px] uppercase mb-2">memory 02</small>
+            <p class="caption-reveal text-cream font-display text-2xl md:text-3xl">Golden hour on the veranda</p>
           </div>
           <div class="absolute inset-0 ring-2 ring-gold/0 group-hover:ring-gold/60 rounded-3xl transition-all duration-500"></div>
         </div>
 
-        <div class="tilt-card gallery-panel group relative w-[82vw] md:w-[32vw] h-[56vh] md:h-[62vh] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-rose-900/10">
+        <div class="tilt-card gallery-photo gallery-panel group relative w-[82vw] md:w-[32vw] h-[56vh] md:h-[62vh] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-rose-900/10">
           <img src="images/shiza-2.jpg" alt="Ninus smiling at the souq" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-          <div class="absolute inset-0 bg-gradient-to-t from-rose-950/80 via-transparent to-transparent"></div>
-          <div class="absolute inset-x-0 bottom-0 p-5 overflow-hidden">
-            <p class="caption-reveal text-cream font-display text-xl">Evenings at the souq</p>
+          <div class="gallery-dim"></div>
+          <div class="gallery-caption">
+            <small class="block text-[10px] uppercase mb-2">memory 03</small>
+            <p class="caption-reveal text-cream font-display text-2xl md:text-3xl">Evenings at the souq</p>
           </div>
           <div class="absolute inset-0 ring-2 ring-gold/0 group-hover:ring-gold/60 rounded-3xl transition-all duration-500"></div>
         </div>
 
-        <div class="tilt-card gallery-panel group relative w-[82vw] md:w-[32vw] h-[56vh] md:h-[62vh] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-rose-900/10">
+        <div class="tilt-card gallery-photo gallery-panel group relative w-[82vw] md:w-[32vw] h-[56vh] md:h-[62vh] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-rose-900/10">
           <img src="images/shiza-3.jpg" alt="Ninus draped in a blue silk saree" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-          <div class="absolute inset-0 bg-gradient-to-t from-rose-950/80 via-transparent to-transparent"></div>
-          <div class="absolute inset-x-0 bottom-0 p-5 overflow-hidden">
-            <p class="caption-reveal text-cream font-display text-xl">Draped in blue silk elegance</p>
+          <div class="gallery-dim"></div>
+          <div class="gallery-caption">
+            <small class="block text-[10px] uppercase mb-2">memory 04</small>
+            <p class="caption-reveal text-cream font-display text-2xl md:text-3xl">Draped in blue silk elegance</p>
           </div>
           <div class="absolute inset-0 ring-2 ring-gold/0 group-hover:ring-gold/60 rounded-3xl transition-all duration-500"></div>
         </div>
 
-        <div class="tilt-card gallery-panel group relative w-[82vw] md:w-[32vw] h-[56vh] md:h-[62vh] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-rose-900/10">
+        <div class="tilt-card gallery-photo gallery-panel group relative w-[82vw] md:w-[32vw] h-[56vh] md:h-[62vh] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-rose-900/10">
           <img src="images/shiza-4.jpg" alt="Ninus in a yellow floral dress" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-          <div class="absolute inset-0 bg-gradient-to-t from-rose-950/80 via-transparent to-transparent"></div>
-          <div class="absolute inset-x-0 bottom-0 p-5 overflow-hidden">
-            <p class="caption-reveal text-cream font-display text-xl">Sunshine &amp; henna</p>
+          <div class="gallery-dim"></div>
+          <div class="gallery-caption">
+            <small class="block text-[10px] uppercase mb-2">memory 05</small>
+            <p class="caption-reveal text-cream font-display text-2xl md:text-3xl">Sunshine &amp; henna</p>
+          </div>
+          <div class="absolute inset-0 ring-2 ring-gold/0 group-hover:ring-gold/60 rounded-3xl transition-all duration-500"></div>
+        </div>
+
+
+          <div class="absolute inset-0 ring-2 ring-gold/0 group-hover:ring-gold/60 rounded-3xl transition-all duration-500"></div>
+        </div>
+
+        <div class="tilt-card gallery-photo gallery-panel group relative w-[82vw] md:w-[32vw] h-[56vh] md:h-[62vh] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-rose-900/10">
+          <img src="images/oldGroup.png" alt="A family group portrait" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="gallery-dim"></div>
+          <div class="gallery-caption">
+            <small class="block text-[10px] uppercase mb-2">memory 07</small>
+            <p class="caption-reveal text-cream font-display text-2xl md:text-3xl">Together, all these years</p>
+          </div>
+          <div class="absolute inset-0 ring-2 ring-gold/0 group-hover:ring-gold/60 rounded-3xl transition-all duration-500"></div>
+        </div>
+
+        <div class="tilt-card gallery-photo gallery-panel group relative w-[82vw] md:w-[32vw] h-[56vh] md:h-[62vh] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-rose-900/10">
+          <img src="images/gulfpic.png" alt="A favorite place" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="gallery-dim"></div>
+          <div class="gallery-caption">
+            <small class="block text-[10px] uppercase mb-2">memory 08</small>
+            <p class="caption-reveal text-cream font-display text-2xl md:text-3xl">A memory from the Gulf</p>
+          </div>
+          <div class="absolute inset-0 ring-2 ring-gold/0 group-hover:ring-gold/60 rounded-3xl transition-all duration-500"></div>
+        </div>
+
+        <div class="tilt-card gallery-photo gallery-panel group relative w-[82vw] md:w-[32vw] h-[56vh] md:h-[62vh] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-rose-900/10">
+          <img src="images/Gemini_Generated_Image_7kmh0j7kmh0j7kmh.png" alt="A birthday portrait of Ninus" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="gallery-dim"></div>
+          <div class="gallery-caption">
+            <small class="block text-[10px] uppercase mb-2">memory 09</small>
+            <p class="caption-reveal text-cream font-display text-2xl md:text-3xl">A portrait for your day</p>
+          </div>
+          <div class="absolute inset-0 ring-2 ring-gold/0 group-hover:ring-gold/60 rounded-3xl transition-all duration-500"></div>
+        </div>
+
+        <div class="tilt-card gallery-photo gallery-panel group relative w-[82vw] md:w-[32vw] h-[56vh] md:h-[62vh] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-rose-900/10">
+          <img src="images/bond.png" alt="Ninus with her cousin" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div class="gallery-dim"></div>
+          <div class="gallery-caption">
+            <small class="block text-[10px] uppercase mb-2">memory 10</small>
+            <p class="caption-reveal text-cream font-display text-2xl md:text-3xl">Cousins, always</p>
           </div>
           <div class="absolute inset-0 ring-2 ring-gold/0 group-hover:ring-gold/60 rounded-3xl transition-all duration-500"></div>
         </div>
@@ -595,7 +707,10 @@
   </section>
 
   <!-- ============ SURPRISE LETTER BOX ============ -->
-  <section id="surprise-box" class="relative bg-cream text-ink py-28 px-6 flex flex-col items-center text-center overflow-hidden">
+  <section id="surprise-box" class="relative text-ink py-28 px-6 flex flex-col items-center text-center overflow-hidden">
+    <span class="surprise-sparkle left-[12%] top-[24%] text-2xl" aria-hidden="true">✦</span>
+    <span class="surprise-sparkle right-[14%] top-[34%] text-lg" aria-hidden="true" style="animation-delay:-2s">✧</span>
+    <span class="surprise-sparkle right-[22%] bottom-[18%] text-xl" aria-hidden="true" style="animation-delay:-4s">✦</span>
     <div class="text-center mb-14 reveal">
       <p class="eyebrow justify-center font-display italic text-rose-600 text-lg md:text-xl mb-2">one more thing</p>
       <h2 class="font-serif text-3xl md:text-5xl text-rose-900">A Little Secret Surprise</h2>
@@ -620,16 +735,16 @@
           </svg>
         </div>
       </div>
-      <p id="gift-hint" class="mt-6 text-rose-900/35 text-[11px] tracking-[0.2em] uppercase transition-opacity duration-500">tap to open</p>
+      <p id="gift-hint" class="mt-6 text-rose-900/45 text-[11px] tracking-[0.2em] uppercase transition-opacity duration-500">tap to open your surprise</p>
+      <p id="gift-celebration" class="mt-5 text-[11px] md:text-xs font-semibold uppercase" aria-live="polite">✦ &nbsp; surprise unlocked · happy birthday, ninus! &nbsp; ✦</p>
     </div>
 
     <!-- Photo that tumbles out first -->
     <div id="photo-card" class="mt-10 opacity-0 pointer-events-none" style="transform: translateY(-30px) rotate(-10deg) scale(0.8);">
       <div class="relative bg-white p-3 pb-14 rounded-sm shadow-2xl rotate-[-4deg] w-60 sm:w-72">
         <div class="absolute -top-4 -right-3 text-3xl rotate-[18deg] drop-shadow">📌</div>
-        <!-- Replace with your own photo: images/bond.png -->
-        <img src="images/bond.png" alt="Ninus and her cousin together" class="w-full h-64 sm:h-80 object-cover rounded-sm" />
-        <p class="font-display italic text-rose-900 text-center mt-4 text-lg">us, always 💛</p>
+        <img src="images/old.png" alt="A special childhood memory" class="w-full h-64 sm:h-80 object-cover rounded-sm" />
+        <p class="font-display italic text-rose-900 text-center mt-4 text-lg">a little piece of our story 💛</p>
       </div>
     </div>
 
@@ -1329,10 +1444,19 @@
     opened = true;
     giftBox.classList.add("is-open");
     gsap.to(giftHint, { opacity: 0, duration: 0.3 });
+    document.getElementById("gift-celebration").classList.add("is-visible");
 
     var origin = getBoxCenterPx();
     playPop();
+    playChime([659.25, 783.99, 1046.5, 1318.5], 1.1);
     crackerBlast(origin.x, origin.y);
+    setTimeout(function () {
+      confettiBurst({ particleCount: 90, spread: 115, startVelocity: 52, origin: { x: 0.5, y: 0.62 }, colors: PARTY_COLORS, scalar: 1.15 });
+    }, 420);
+    setTimeout(function () {
+      confettiBurst({ particleCount: 45, angle: 60, spread: 72, startVelocity: 58, origin: { x: 0, y: 0.72 }, colors: PARTY_COLORS });
+      confettiBurst({ particleCount: 45, angle: 120, spread: 72, startVelocity: 58, origin: { x: 1, y: 0.72 }, colors: PARTY_COLORS });
+    }, 850);
 
     gsap.fromTo(giftBox, { x: 0 }, {
       keyframes: { x: [0, -8, 8, -5, 5, 0] },
